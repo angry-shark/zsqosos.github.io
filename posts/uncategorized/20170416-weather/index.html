@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zsqosos.github.io">
-  <title>Archives: 2017 | Zhangs&#39;blog</title>
+  <title>原生js实现天气查询小应用 | Zhangs&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="javascript,生活感想,随笔">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zhangs'blog">
-<meta property="og:url" content="http://zsqosos.github.io/archives/2017/index.html">
+  <meta name="description" content="介绍用原生js实现了一个简单的小应用，可以用来查询全国天气，主要实现了以下两个功能  点开链接时，页面自动获取当前所在城市，并显示所在城市的天气信息 在搜索栏搜索要查询的城市，可显示要查询城市的天气信息  页面效果如下： 预览 在线预览 完整代码  请使用高级浏览器查看，预览时若速度较慢，请耐心等待 实现原理1.用jsonp的方式请求天气数据由于现有免费天气api较少，在此推荐两个api  now">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原生js实现天气查询小应用">
+<meta property="og:url" content="http://zsqosos.github.io/posts/uncategorized/20170416-weather/index.html">
 <meta property="og:site_name" content="Zhangs'blog">
-<meta property="og:description" content="javascript,生活感想,随笔">
+<meta property="og:description" content="介绍用原生js实现了一个简单的小应用，可以用来查询全国天气，主要实现了以下两个功能  点开链接时，页面自动获取当前所在城市，并显示所在城市的天气信息 在搜索栏搜索要查询的城市，可显示要查询城市的天气信息  页面效果如下： 预览 在线预览 完整代码  请使用高级浏览器查看，预览时若速度较慢，请耐心等待 实现原理1.用jsonp的方式请求天气数据由于现有免费天气api较少，在此推荐两个api  now">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-de15044359c172bc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-d3fb5ecc7304a146.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-04-16T09:01:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zhangs'blog">
-<meta name="twitter:description" content="javascript,生活感想,随笔">
+<meta name="twitter:title" content="原生js实现天气查询小应用">
+<meta name="twitter:description" content="介绍用原生js实现了一个简单的小应用，可以用来查询全国天气，主要实现了以下两个功能  点开链接时，页面自动获取当前所在城市，并显示所在城市的天气信息 在搜索栏搜索要查询的城市，可显示要查询城市的天气信息  页面效果如下： 预览 在线预览 完整代码  请使用高级浏览器查看，预览时若速度较慢，请耐心等待 实现原理1.用jsonp的方式请求天气数据由于现有免费天气api较少，在此推荐两个api  now">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4384107-de15044359c172bc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Zhangs&#39;blog" type="application/atom+xml">
   
@@ -166,36 +171,67 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-weather" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/uncategorized/20170416-weather/" class="archive-article-date">
-  	<time datetime="2017-04-16T08:55:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/uncategorized/20170416-weather/">原生js实现天气查询小应用</a>
+    <h1 class="article-title" itemprop="name">
+      原生js实现天气查询小应用
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/posts/uncategorized/20170416-weather/" class="archive-article-date">
+  	<time datetime="2017-04-16T08:55:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>用原生js实现了一个简单的小应用，可以用来查询全国天气，主要实现了以下两个功能</p>
+<ul>
+<li>点开链接时，页面自动获取当前所在城市，并显示所在城市的天气信息</li>
+<li>在搜索栏搜索要查询的城市，可显示要查询城市的天气信息</li>
+</ul>
+<p>页面效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/4384107-de15044359c172bc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="天气查询.jpg"></p>
+<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><ul>
+<li><a href="https://zsqosos.github.io/weather/">在线预览</a></li>
+<li><a href="https://github.com/zsqosos/weather" target="_blank" rel="external">完整代码</a></li>
+</ul>
+<p>请使用高级浏览器查看，预览时若速度较慢，请耐心等待</p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h4 id="1-用jsonp的方式请求天气数据"><a href="#1-用jsonp的方式请求天气数据" class="headerlink" title="1.用jsonp的方式请求天气数据"></a>1.用jsonp的方式请求天气数据</h4><p>由于现有免费天气api较少，在此推荐两个api</p>
+<ul>
+<li><a href="http://www.nowapi.com/" target="_blank" rel="external">nowapi</a></li>
+<li><a href="http://lbsyun.baidu.com/" target="_blank" rel="external">百度地图开放平台</a></li>
+</ul>
+<p>这两者都是可以免费使用的，nowapi的免费天气数据可以提供未来7天天气数据，百度地图的api可以提供当前所在地理位置及当日天气详情，结合使用基本可以满足个人需求</p>
+<ul>
+<li><p>百度天气api测试示例：<a href="http://api.map.baidu.com/telematics/v3/weather?location=西安&amp;output=json&amp;ak=FK9mkfdQsloEngodbFl4FeY3" target="_blank" rel="external">http://api.map.baidu.com/telematics/v3/weather?location=西安&amp;output=json&amp;ak=FK9mkfdQsloEngodbFl4FeY3</a></p>
+</li>
+<li><p>newapi天气api测试示例：<a href="[http://api.k780.com:88/?app=weather.future&amp;weaid=1&amp;&amp;appkey=10003&amp;sign=b59bc3ef6191eb9f747dd4e83c99f2a4&amp;format=json](http://api.k780.com:88/?app=weather.future&amp;weaid=1&amp;&amp;appkey=10003&amp;sign=b59bc3ef6191eb9f747dd4e83c99f2a4&amp;format=json"><a href="http://api.k780.com:88/?app=weather.future&amp;weaid=1&amp;&amp;appkey=10003&amp;sign=b59bc3ef6191eb9f747dd4e83c99f2a4&amp;format=json" target="_blank" rel="external">http://api.k780.com:88/?app=weather.future&amp;weaid=1&amp;&amp;appkey=10003&amp;sign=b59bc3ef6191eb9f747dd4e83c99f2a4&amp;format=json</a></a>)</p>
+</li>
+</ul>
+<p>以上地址仅供测试使用，若需使用，请单独申请key。另外，以上数据接口均支持<code>https</code>，并支持<code>jsonp</code>调用</p>
+<p>jsonp方式的数据请求函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">    script.src = url;</div><div class="line">    <span class="built_in">document</span>.body.insertBefore(script, <span class="built_in">document</span>.body.firstChild);</div><div class="line">    <span class="built_in">document</span>.body.removeChild(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将上述天气api地址传入此函数，便可得到天气数据，对于请求所需参数及返回数据格式请参考官方api文档，在此不再赘述。采用jsonp的方式可以完美解决跨域的问题，但需注意一点，使用https协议的站点也只能调用支持https的api接口</p>
+<p>返回数据如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4384107-d3fb5ecc7304a146.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据.jpg"></p>
+<p>返回的数据为<code>json</code>格式，由于我的chrome安装了<code>JSONview</code>插件，所以可以看到格式化后的<code>json</code>数据</p>
+<h4 id="2-将返回数据展示在页面上"><a href="#2-将返回数据展示在页面上" class="headerlink" title="2.将返回数据展示在页面上"></a>2.将返回数据展示在页面上</h4><p>这一步比较简单，主要是用js操作dom，将对应的数据填在页面相应的位置上，除了文字数据外，还需对天气图标进行操作，使之与天气相对应。返回的数据中已含有天气图标url，只需根据返回数据动态改变原有<code>html</code>中<code>img</code>的<code>src</code>即可。但由于以上api所提供的天气图标太丑，所以我采用了自己的天气图标来替换</p>
+<h2 id="主要代码"><a href="#主要代码" class="headerlink" title="主要代码"></a>主要代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调用jsonp函数请求当前所在城市</span></div><div class="line">jsonp(<span class="string">'https://api.map.baidu.com/api?v=2.0&amp;ak=Dv1NMU23dh1sGS9n2tUouDEYY96Dfzh3&amp;s=1&amp;callback=getCity'</span>);</div><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//请求天气车数据</span></div><div class="line">    btn.onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">        jsonp(createUrl()[<span class="number">0</span>]);</div><div class="line">        jsonp(createUrl()[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCity</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">city</span>(<span class="params">result</span>)</span>&#123;</div><div class="line">        <span class="comment">//去掉城市名后的"市"</span></div><div class="line">        <span class="keyword">var</span> city = result.name.substring(<span class="number">0</span>,result.name.length<span class="number">-1</span>);</div><div class="line">        <span class="comment">//请求当前城市的天气数据</span></div><div class="line">        jsonp(createUrl(city)[<span class="number">0</span>]);</div><div class="line">        jsonp(createUrl(city)[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> cityName = <span class="keyword">new</span> BMap.LocalCity();</div><div class="line">    cityName.get(city);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 数据请求函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">    script.src = url;</div><div class="line">    <span class="built_in">document</span>.body.insertBefore(script, <span class="built_in">document</span>.body.firstChild);</div><div class="line">    <span class="built_in">document</span>.body.removeChild(script);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//数据请求成功回调函数，用于将获取到的数据放入页面相应位置</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWeather</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'info'</span>);</div><div class="line">    <span class="keyword">var</span> data = response.result;</div><div class="line">    oSpan[<span class="number">0</span>].innerHTML=data[<span class="number">0</span>].citynm;</div><div class="line">    oSpan[<span class="number">1</span>].innerHTML=data[<span class="number">0</span>].days;</div><div class="line">    oSpan[<span class="number">2</span>].innerHTML=data[<span class="number">0</span>].week;</div><div class="line">    oSpan[<span class="number">3</span>].innerHTML=data[<span class="number">0</span>].weather;</div><div class="line">    oSpan[<span class="number">4</span>].innerHTML=data[<span class="number">0</span>].temperature;</div><div class="line">    oSpan[<span class="number">5</span>].innerHTML=data[<span class="number">0</span>].winp;</div><div class="line">    oSpan[<span class="number">6</span>].innerHTML=data[<span class="number">0</span>].wind;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> aDiv = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'future_box'</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;aDiv.length; i++)&#123;</div><div class="line">        <span class="keyword">var</span> aSpan = aDiv[i].getElementsByClassName(<span class="string">'future_info'</span>);</div><div class="line">        aSpan[<span class="number">0</span>].innerHTML = data[i+<span class="number">1</span>].days;</div><div class="line">        aSpan[<span class="number">1</span>].innerHTML = data[i+<span class="number">1</span>].week;</div><div class="line">        aSpan[<span class="number">2</span>].innerHTML =data[i+<span class="number">1</span>].weather;</div><div class="line">        aSpan[<span class="number">3</span>].innerHTML = data[i+<span class="number">1</span>].temperature;</div><div class="line">    &#125;</div><div class="line"><span class="comment">//根据返回数据，替换不同天气图片</span></div><div class="line">    changeImg(response);</div><div class="line">&#125;</div><div class="line"><span class="comment">//请求今日天气详细数据回调函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTodayWeather</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> oSpan = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'info'</span>);</div><div class="line">    <span class="keyword">var</span> data = response.results;</div><div class="line">    oSpan[<span class="number">7</span>].innerHTML=data[<span class="number">0</span>].pm25;</div><div class="line">    oSpan[<span class="number">8</span>].innerHTML=data[<span class="number">0</span>].index[<span class="number">4</span>].zs;</div><div class="line">    oSpan[<span class="number">9</span>].innerHTML=data[<span class="number">0</span>].index[<span class="number">1</span>].zs;</div><div class="line">    oSpan[<span class="number">10</span>].innerHTML=data[<span class="number">0</span>].index[<span class="number">2</span>].zs;</div><div class="line">    oSpan[<span class="number">11</span>].innerHTML=data[<span class="number">0</span>].index[<span class="number">0</span>].zs;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//根据获取到的数据更改页面中相应的图片</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeImg</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> firstImg = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"img"</span>)[<span class="number">0</span>];</div><div class="line">    <span class="keyword">var</span> firstWeatherId=data.result[<span class="number">0</span>].weatid;</div><div class="line">    chooseImg(firstWeatherId,firstImg);</div><div class="line"></div><div class="line">    <span class="keyword">var</span> aImg = <span class="built_in">document</span>.getElementById(<span class="string">'future_container'</span>).getElementsByTagName(<span class="string">'img'</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;aImg.length; j++)&#123;</div><div class="line">        <span class="keyword">var</span> weatherId = data.result[j+<span class="number">1</span>].weatid;</div><div class="line">        chooseImg(weatherId,aImg[j]);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//选择图片</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">chooseImg</span>(<span class="params">id,index</span>)</span>&#123;</div><div class="line">    <span class="keyword">switch</span>(id)&#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">'1'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/1.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'2'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/2.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'3'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/3.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'4'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'5'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'6'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'8'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'9'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'10'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'11'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'12'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'13'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'20'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'22'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'23'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'24'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'25'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'26'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/4.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'7'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/6.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'14'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'15'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'16'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'17'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'18'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'27'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'28'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'29'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/5.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">'19'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'21'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'30'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'31'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'32'</span>:</div><div class="line">        <span class="keyword">case</span> <span class="string">'33'</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/7.png'</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            index.src=<span class="string">'images/weather_icon/8.png'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//根据城市名创建请求数据及url</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createUrl</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> cityName = <span class="string">''</span>;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>.length == <span class="number">0</span>) &#123;</div><div class="line">        cityName = <span class="built_in">document</span>.getElementById(<span class="string">'text'</span>).value;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        cityName = <span class="built_in">arguments</span>[<span class="number">0</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> urls = []; </div><div class="line">    urls[<span class="number">0</span>] = <span class="string">'https://sapi.k780.com/?app=weather.future&amp;appkey=10003&amp;sign=b59bc3ef6191eb9f747dd4e83c99f2a4&amp;format=json&amp;jsoncallback=getWeather&amp;weaid='</span> + <span class="built_in">encodeURI</span>(cityName);</div><div class="line">    urls[<span class="number">1</span>] = <span class="string">'https://api.map.baidu.com/telematics/v3/weather?output=json&amp;ak=FK9mkfdQsloEngodbFl4FeY3&amp;callback=getTodayWeather&amp;location='</span> + <span class="built_in">encodeURI</span>(cityName);</div><div class="line">    <span class="keyword">return</span> urls;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现过程很简单，代码量也不大，有兴趣的朋友可以自己动手试试，当然，若是能给我个star就再好不过了(^_^)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -207,133 +243,92 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zsqosos.github.io/posts/uncategorized/20170416-weather/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/uncategorized/20170415-jquery-carousel/" class="archive-article-date">
-  	<time datetime="2017-04-15T07:26:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/uncategorized/20170415-jquery-carousel/">jquery carousel</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/uncategorized/20170320-life/" class="archive-article-date">
-  	<time datetime="2017-03-20T12:48:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/uncategorized/20170320-life/">三月的北京</a>
-    </h1>
+    <a href="/posts/uncategorized/20170415-jquery-carousel/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          jquery carousel
+        
+      </div>
+    </a>
   
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170208-my-new-post/" class="archive-article-date">
-  	<time datetime="2017-02-08T11:22:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170208-my-new-post/">its my life</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">test</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/生活/" class="article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
+</nav>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
+
+
   
-  
-    </div></section>
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -356,8 +351,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
