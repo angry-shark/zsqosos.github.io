@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-643944d1738cf417.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-8f0893291dd251bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-92024db349e413f8.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-04T15:18:40.939Z">
+<meta property="og:updated_time" content="2017-07-08T06:32:34.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大白话谈互联网协议">
 <meta name="twitter:description" content="你的问题在这个宁肯不吃一顿饭，不可断一小时网的时代里，我们对网络的依赖已经达到了无以复加的地步，虽然我们每天在使用网络，却并不清楚网络通讯到底是如何进行的？ 比如，你在微信里给苦追了好久的姑娘发送了一条约会消息，她收到了，并且在微信上回复给你“不好意思，我今晚有约了”，但是这可能是个误会，你发送的消息为什么可以成功到达她的手机上，而不是被远在大洋彼岸的川普收到呢？她在手机上看到这条消息后，回复给">
@@ -193,8 +193,7 @@
       
         <p><img src="https://ooo.0o0.ooo/2017/06/19/5947df3d363a4.png" alt=""></p>
 <h2 id="你的问题"><a href="#你的问题" class="headerlink" title="你的问题"></a>你的问题</h2><p>在这个宁肯不吃一顿饭，不可断一小时网的时代里，我们对网络的依赖已经达到了无以复加的地步，虽然我们每天在使用网络，却并不清楚网络通讯到底是如何进行的？</p>
-<p>比如，你在微信里给苦追了好久的姑娘发送了一条约会消息，她收到了，并且在微信上回复给你“不好意思，我今晚有约了”，但是这可能是个误会，你发送的消息为什么可以成功到达她的手机上，而不是被远在大洋彼岸的川普收到呢？她在手机上看到这条消息后，回复给你一条拒绝的消息，这条消息也准确无误的被你所接收，本来打算和姑娘一块看电影的计划泡汤了，虽然你这时候心情很糟，但你也无事可做，所以打算研究研究这该死的网络通讯协议。看看为什么你发给妹子的消息没有发到川普的手机上。</p>
-<a id="more"></a>
+<p>比如，你在微信里给苦追了好久的姑娘发送了一条约会消息，她收到了，并且在微信上回复给你“不好意思，我今晚有约了”，但是这可能是个误会，你发送的消息为什么可以成功到达她的手机上，而不是被远在大洋彼岸的川普收到呢？她在手机上看到这条消息后，回复给你一条拒绝的消息，这条消息也准确无误的被你所接收，本来打算和姑娘一块看电影的计划泡汤了，虽然你这时候心情很糟，但你也无事可做，所以打算研究研究这该死的网络通讯协议。看看为什么你发给妹子的消息没有发到川普的手机上。<a id="more"></a></p>
 <h2 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h2><p>我们先来看看你给姑娘发送消息这一过程，它的背后到底发生了什么。首先，你编辑了一条消息，点击了发送按钮，这时这条消息会被经过包装，然后发送至腾讯的服务器上，包装的过程中，会把发送人、接收人、消息内容等等信息整合在一起，腾讯的服务器接收的这条信息之后，对应的程序就会对这条消息进行处理计算，从而得知要把什么内容发送给什么人，然后服务器也将这一信息进行包装处理，发送出去，之后姑娘收到消息。这只是一个简单的消息传递流程，要想真正搞清楚消息是怎么发送的，还需要了解互联网通讯的原理。</p>
 <h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>首先我们要知道协议是什么？其实很简单，协议其实就是一种规则。比如在社会中，我们有法律来约束每个人的行为，法律就可以看做是一种面向公民的“协议”。在互联网上我们同样需要一些规则来约束各个主机设备或程序的行为，那么这个规则就是互联网协议。接下来我们会介绍互联网分层模型，互联网的每一层都有其特定的功能，要实现这特定的功能就要有对应的协议。</p>
 <h2 id="互联网分层模型"><a href="#互联网分层模型" class="headerlink" title="互联网分层模型"></a>互联网分层模型</h2><p>为了便于理解，我们一般可以将互联网通讯模型分为五层，每个层都有它自己的功能。物理层是最底层，应用层是最高层，中间分别是链路层、网络层和传输层，其每一层都是建立在上一层的基础上的。</p>
@@ -403,11 +402,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
+                <a href="javascript:void(0)" class="js-tag color3">旧事</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -415,11 +414,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">旧事</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
             
             <div class="clearfix"></div>
