@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zsqosos.github.io">
-  <title>Archives | Zhangs&#39;blog</title>
+  <title>关于setInterval和setTimeout中的this指向问题 | Zhangs&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="javascript,前端,生活,随笔">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zhangs'blog">
-<meta property="og:url" content="http://zsqosos.github.io/archives/index.html">
+  <meta name="description" content="问题描述前些天在练习写一个小例子的时候用到了定时器，发现在setInterval和setTimeout中传入函数时，函数中的this会指向window对象，如下例：">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于setInterval和setTimeout中的this指向问题">
+<meta property="og:url" content="http://zsqosos.github.io/posts/program/20161216-setinterval-this/index.html">
 <meta property="og:site_name" content="Zhangs'blog">
-<meta property="og:description" content="javascript,前端,生活,随笔">
+<meta property="og:description" content="问题描述前些天在练习写一个小例子的时候用到了定时器，发现在setInterval和setTimeout中传入函数时，函数中的this会指向window对象，如下例：">
+<meta property="og:updated_time" content="2017-07-16T15:42:04.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zhangs'blog">
-<meta name="twitter:description" content="javascript,前端,生活,随笔">
+<meta name="twitter:title" content="关于setInterval和setTimeout中的this指向问题">
+<meta name="twitter:description" content="问题描述前些天在练习写一个小例子的时候用到了定时器，发现在setInterval和setTimeout中传入函数时，函数中的this会指向window对象，如下例：">
   
     <link rel="alternative" href="/atom.xml" title="Zhangs&#39;blog" type="application/atom+xml">
   
@@ -166,195 +168,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-setinterval-this" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于setInterval和setTimeout中的this指向问题
+    </h1>
+  
+
+        
+        <a href="/posts/program/20161216-setinterval-this/" class="archive-article-date">
+  	<time datetime="2016-12-16T11:22:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-16</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>前些天在练习写一个小例子的时候用到了定时器，发现在<code>setInterval</code>和<code>setTimeout</code>中传入函数时，函数中的<code>this</code>会指向<code>window</code>对象，如下例：<a id="more"></a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的为obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//0　　打印的为window.num，值为0</span></div></pre></td></tr></table></figure>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>从上述例子中可以看到<code>setTimeout</code>中函数内的<code>this</code>是指向了<code>window</code>对象，这是由于<code>setTimeout()</code>调用的代码运行在与所在函数完全分离的执行环境上。 这会导致这些代码中包含的 <code>this</code> 关键字会指向 window (或全局)对象。详细可参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout" target="_blank" rel="external">MDN setTimeout</a></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p> 1.将当前对象的<code>this</code>存为一个变量，定时器内的函数利用闭包来访问这个变量，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;    <span class="comment">//将this存为一个变量，此时的this指向obj</span></div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(that.num);    <span class="comment">//利用闭包访问that，that是一个指向obj的指针</span></div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p>这种方法是将当前对象的引用放在一个变量里，定时器内部的函数来访问到这个变量，自然就可以得到当前的对象。</p>
+<p>2.利用bind()方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;.bind(<span class="keyword">this</span>), <span class="number">1000</span>)    <span class="comment">//利用bind()将this绑定到这个函数上</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p><code>bind</code>方法是在<code>Function.prototype</code>上的一个方法，当被绑定函数执行时，<code>bind</code>方法会创建一个新函数，并将第一个参数作为新函数运行时的this。在这个例子中，在调用<code>setTimeout</code>中的函数时，<code>bind</code>方法创建了一个新的函数，并将this传进新的函数，执行的结果也就是正确的了。关于<code>bind</code>方法可参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank" rel="external">MDN bind</a></p>
+<p>3.箭头函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;, <span class="number">1000</span>)    <span class="comment">//箭头函数中的this总是指向外层调用者，也就是Obj</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p><code>ES6</code>中的箭头函数完全修复了this的指向，this总是指向词法作用域，也就是外层调用者obj，利用箭头函数就可以轻松解决这个问题。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上三种方法都是比较常用的，当然如果使用call或apply方法来代替bind方法，得到的结果也是正确的，但是call方法会在调用之后立即执行，那样也就没有了延时的效果，定时器也就没有用了，所以推荐使用上述方法来将this传进setTimeout和setInterval中。 </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170708-cycling-in-the-rain/" class="archive-article-date">
-  	<time datetime="2017-07-07T16:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170708-cycling-in-the-rain/">骑行在大雨滂沱的夜</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170702-grandmother/" class="archive-article-date">
-  	<time datetime="2017-07-02T14:16:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170702-grandmother/">外婆</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170625-graduation-memories/" class="archive-article-date">
-  	<time datetime="2017-06-25T14:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170625-graduation-memories/">旧日与往事</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/program/20170519-internet-protocol/" class="archive-article-date">
-  	<time datetime="2017-05-19T14:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/program/20170519-internet-protocol/">大白话谈互联网协议</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -367,69 +233,59 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170320-beijing-in-march/" class="archive-article-date">
-  	<time datetime="2017-03-20T12:48:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/posts/program/20161212-jquery-carousel/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          jQuery轮播图——轮播实现并封装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/program/20170116-weather/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">原生js实现天气查询小应用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170320-beijing-in-march/">三月的北京</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -453,8 +309,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zsqosos.github.io">
-  <title>Archives | Zhangs&#39;blog</title>
+  <title>jQuery轮播图——轮播实现并封装 | Zhangs&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="javascript,前端,生活,随笔">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zhangs'blog">
-<meta property="og:url" content="http://zsqosos.github.io/archives/index.html">
+  <meta name="description" content="介绍使用jQuery完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、prototype继承、原型链等等。  demo预览：点此预览 代码地址： https://github.com/zsqosos/component_library/tree/master/jquery-carousel 文章首发：jQuery轮播">
+<meta name="keywords" content="组件,jQuery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery轮播图——轮播实现并封装">
+<meta property="og:url" content="http://zsqosos.github.io/posts/program/20161212-jquery-carousel/index.html">
 <meta property="og:site_name" content="Zhangs'blog">
-<meta property="og:description" content="javascript,前端,生活,随笔">
+<meta property="og:description" content="介绍使用jQuery完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、prototype继承、原型链等等。  demo预览：点此预览 代码地址： https://github.com/zsqosos/component_library/tree/master/jquery-carousel 文章首发：jQuery轮播">
+<meta property="og:updated_time" content="2017-07-16T15:41:30.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zhangs'blog">
-<meta name="twitter:description" content="javascript,前端,生活,随笔">
+<meta name="twitter:title" content="jQuery轮播图——轮播实现并封装">
+<meta name="twitter:description" content="介绍使用jQuery完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、prototype继承、原型链等等。  demo预览：点此预览 代码地址： https://github.com/zsqosos/component_library/tree/master/jquery-carousel 文章首发：jQuery轮播">
   
     <link rel="alternative" href="/atom.xml" title="Zhangs&#39;blog" type="application/atom+xml">
   
@@ -166,195 +168,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-jquery-carousel" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery轮播图——轮播实现并封装
+    </h1>
+  
+
+        
+        <a href="/posts/program/20161212-jquery-carousel/" class="archive-article-date">
+  	<time datetime="2016-12-12T11:22:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>使用<code>jQuery</code>完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、<code>prototype</code>继承、原型链等等。</p>
+<ul>
+<li>demo预览：<a href="">点此预览</a></li>
+<li>代码地址： <a href="https://github.com/zsqosos/component_library/tree/master/jquery-carousel" target="_blank" rel="external">https://github.com/zsqosos/component_library/tree/master/jquery-carousel</a></li>
+<li>文章首发：<a href="http://www.cnblogs.com/zsqos/p/6126782.html" target="_blank" rel="external">jQuery轮播图（一）轮播实现并封装</a><a id="more"></a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170708-cycling-in-the-rain/" class="archive-article-date">
-  	<time datetime="2017-07-07T16:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170708-cycling-in-the-rain/">骑行在大雨滂沱的夜</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">组件</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jQuery</a>
         		</li>
       		
 		</ul>
 	</div>
 
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170702-grandmother/" class="archive-article-date">
-  	<time datetime="2017-07-02T14:16:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170702-grandmother/">外婆</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170625-graduation-memories/" class="archive-article-date">
-  	<time datetime="2017-06-25T14:46:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170625-graduation-memories/">旧日与往事</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/program/20170519-internet-protocol/" class="archive-article-date">
-  	<time datetime="2017-05-19T14:17:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/program/20170519-internet-protocol/">大白话谈互联网协议</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -367,69 +230,59 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/life/20170320-beijing-in-march/" class="archive-article-date">
-  	<time datetime="2017-03-20T12:48:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/posts/extract/19940828-mr-feng-speech-in-xiamen/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          丰子恺——《我与弘一法师》
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/program/20161216-setinterval-this/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于setInterval和setTimeout中的this指向问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/life/20170320-beijing-in-march/">三月的北京</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/life/" class="article-tag-list-link color5">life</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -453,8 +306,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

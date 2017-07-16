@@ -340,13 +340,82 @@
   </entry>
   
   <entry>
+    <title>关于setInterval和setTimeout中的this指向问题</title>
+    <link href="http://zsqosos.github.io/posts/program/20161216-setinterval-this/"/>
+    <id>http://zsqosos.github.io/posts/program/20161216-setinterval-this/</id>
+    <published>2016-12-16T11:22:52.000Z</published>
+    <updated>2017-07-16T15:42:04.937Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>前些天在练习写一个小例子的时候用到了定时器，发现在<code>setInterval</code>和<code>setTimeout</code>中传入函数时，函数中的<code>this</code>会指向<code>window</code>对象，如下例：<a id="more"></a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的为obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//0　　打印的为window.num，值为0</span></div></pre></td></tr></table></figure>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>从上述例子中可以看到<code>setTimeout</code>中函数内的<code>this</code>是指向了<code>window</code>对象，这是由于<code>setTimeout()</code>调用的代码运行在与所在函数完全分离的执行环境上。 这会导致这些代码中包含的 <code>this</code> 关键字会指向 window (或全局)对象。详细可参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout" target="_blank" rel="external">MDN setTimeout</a></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p> 1.将当前对象的<code>this</code>存为一个变量，定时器内的函数利用闭包来访问这个变量，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;    <span class="comment">//将this存为一个变量，此时的this指向obj</span></div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(that.num);    <span class="comment">//利用闭包访问that，that是一个指向obj的指针</span></div><div class="line">        &#125;, <span class="number">1000</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p>这种方法是将当前对象的引用放在一个变量里，定时器内部的函数来访问到这个变量，自然就可以得到当前的对象。</p>
+<p>2.利用bind()方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;.bind(<span class="keyword">this</span>), <span class="number">1000</span>)    <span class="comment">//利用bind()将this绑定到这个函数上</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p><code>bind</code>方法是在<code>Function.prototype</code>上的一个方法，当被绑定函数执行时，<code>bind</code>方法会创建一个新函数，并将第一个参数作为新函数运行时的this。在这个例子中，在调用<code>setTimeout</code>中的函数时，<code>bind</code>方法创建了一个新的函数，并将this传进新的函数，执行的结果也就是正确的了。关于<code>bind</code>方法可参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank" rel="external">MDN bind</a></p>
+<p>3.箭头函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.num = <span class="number">1</span>,</div><div class="line">    <span class="keyword">this</span>.getNum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">    &#125;,</div><div class="line">    <span class="keyword">this</span>.getNumLater = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</div><div class="line">        &#125;, <span class="number">1000</span>)    <span class="comment">//箭头函数中的this总是指向外层调用者，也就是Obj</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj; </div><div class="line">obj.getNum();<span class="comment">//1　　打印的是obj.num，值为1</span></div><div class="line">obj.getNumLater()<span class="comment">//1　　打印的是obj.num，值为1</span></div></pre></td></tr></table></figure>
+<p><code>ES6</code>中的箭头函数完全修复了this的指向，this总是指向词法作用域，也就是外层调用者obj，利用箭头函数就可以轻松解决这个问题。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上三种方法都是比较常用的，当然如果使用call或apply方法来代替bind方法，得到的结果也是正确的，但是call方法会在调用之后立即执行，那样也就没有了延时的效果，定时器也就没有用了，所以推荐使用上述方法来将this传进setTimeout和setInterval中。 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;前些天在练习写一个小例子的时候用到了定时器，发现在&lt;code&gt;setInterval&lt;/code&gt;和&lt;code&gt;setTimeout&lt;/code&gt;中传入函数时，函数中的&lt;code&gt;this&lt;/code&gt;会指向&lt;code&gt;window&lt;/code&gt;对象，如下例：
+    
+    </summary>
+    
+      <category term="program" scheme="http://zsqosos.github.io/categories/program/"/>
+    
+    
+      <category term="javascript" scheme="http://zsqosos.github.io/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery轮播图——轮播实现并封装</title>
+    <link href="http://zsqosos.github.io/posts/program/20161212-jquery-carousel/"/>
+    <id>http://zsqosos.github.io/posts/program/20161212-jquery-carousel/</id>
+    <published>2016-12-12T11:22:52.000Z</published>
+    <updated>2017-07-16T15:41:30.140Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>使用<code>jQuery</code>完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、<code>prototype</code>继承、原型链等等。</p>
+<ul>
+<li>demo预览：<a href="">点此预览</a></li>
+<li>代码地址： <a href="https://github.com/zsqosos/component_library/tree/master/jquery-carousel" target="_blank" rel="external">https://github.com/zsqosos/component_library/tree/master/jquery-carousel</a></li>
+<li>文章首发：<a href="http://www.cnblogs.com/zsqos/p/6126782.html" target="_blank" rel="external">jQuery轮播图（一）轮播实现并封装</a><a id="more"></a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h3&gt;&lt;p&gt;使用&lt;code&gt;jQuery&lt;/code&gt;完成的简单轮播图组件，可在同一页面多个组件同时轮播。轮播图的实现过程并不复杂，但在是在封装过程中，运用到较多基础知识点，有面向对象、&lt;code&gt;prototype&lt;/code&gt;继承、原型链等等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;demo预览：&lt;a href=&quot;&quot;&gt;点此预览&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;代码地址： &lt;a href=&quot;https://github.com/zsqosos/component_library/tree/master/jquery-carousel&quot;&gt;https://github.com/zsqosos/component_library/tree/master/jquery-carousel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;文章首发：&lt;a href=&quot;http://www.cnblogs.com/zsqos/p/6126782.html&quot;&gt;jQuery轮播图（一）轮播实现并封装&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="program" scheme="http://zsqosos.github.io/categories/program/"/>
+    
+    
+      <category term="组件" scheme="http://zsqosos.github.io/tags/%E7%BB%84%E4%BB%B6/"/>
+    
+      <category term="jQuery" scheme="http://zsqosos.github.io/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
     <title>丰子恺——《我与弘一法师》</title>
     <link href="http://zsqosos.github.io/posts/extract/19940828-mr-feng-speech-in-xiamen/"/>
     <id>http://zsqosos.github.io/posts/extract/19940828-mr-feng-speech-in-xiamen/</id>
     <published>1994-08-27T16:00:01.000Z</published>
-    <updated>2017-07-14T16:59:10.237Z</updated>
+    <updated>2017-07-16T14:04:11.216Z</updated>
     
-    <content type="html"><![CDATA[<p>弘一法师是我学艺术的教师，又是我信宗教的导师。我的一生，受法师影响很大。厦门是法师近年经行之地，据我到此三天内所见，厦门人士受法师的影响也很大，故我与厦 门人土不啻都是同窗弟兄。今天佛学会要我演讲，我惭愧修养浅薄，不能讲弘法利生的大义，只能把我从弘一法师学习艺术宗教时的旧事，向诸位同窗弟兄谈谈，还请赐我指教。</p>
+    <content type="html"><![CDATA[<p>弘一法师是我学艺术的教师，又是我信宗教的导师。我的一生，受法师影响很大。厦门是法师近年经行之地，据我到此三天内所见，厦门人士受法师的影响也很大，故我与厦门人士不啻都是同窗弟兄。今天佛学会要我演讲，我惭愧修养浅薄，不能讲弘法利生的大义，只能把我从弘一法师学习艺术宗教时的旧事，向诸位同窗弟兄谈谈，还请赐我指教。</p>
 <p>我十七岁入杭州浙江第一师范，廿岁毕业以后没有升学。我受中等学校以上学校教育，只此五年。这五年间，弘一法师，那时称为李叔同先生，便是我的图画音乐教师。图画音乐两科，在现在的学校里是不很看重的，但是奇怪得很，在当时我们的那间浙江第一师范里，看得比英、国、算还重。<a id="more"></a>我们有两个图画专用的教室，许多石膏模型，两架钢琴，五十几架风琴。我们每天要花一小时去练习图画，花一小时以上去练习弹琴。大家认为当然，恬不为怪，这是什么原故呢?因为李先生的人格和学问，统制了我们的感情，折服了我们的心。他从来不骂人，从来不责备人，态度谦恭，同出家后完全一样，然而个个学生真心的怕他，真心的学习他，真心的崇拜他。我便是其中之一人。因为就人格讲，他的当教师不为名利，为当教师而当教师，用全副精力去当教师。就学问讲，他博学多能，其国文比国文先生更高，其英文比英文先生更高，其历史比历史先生更高，其常识比博物先生更富，又是书法金石的专家，中国话剧的鼻祖。他不是只能教图画音乐，他是拿许多别的学问为背景而教他的图画音乐。夏丐尊先生曾经说，“李先生的教师，是有后光的。”像佛菩萨那样有后光，怎不教人崇拜呢？而我的崇拜他，更甚于他人。大约是我的气质与李先生有一点相似，凡他所欢喜的，我都欢喜。我在师范学校，一二年级都考第一名；三年级以后忽然降到第二十名，因为我旷废了许多师范生的功课，而专心于李先生所喜的文学艺术，一直到毕业。毕业后我无力升大学，借了些钱到日本去游玩，没有进学校，看了许多画展，听了许多音乐会，买了许多文艺书，一年后回国，一方面当教师，一方面埋头自习，一直自习到现在，对李先生的艺术还是迷恋不舍。李先生早已由艺术而升华到宗教而成正果，而我还彷徨在艺术宗教的十字街头，自己想想，真是一个不肖的学生。</p>
 <p>他怎么由艺术升华到宗教呢?当时人都诧异，以为李先生受了什么刺激，忽然“遁入空门”了。我却能理解他的心，我认为他的出家是当然的。我以为人的生活，可以分作三层：一是物质生活，二是精神生活，三是灵魂生活。物质生活就是衣食。精神生活就是学术文艺。灵魂生活就是宗教。“人生”就是这样的一个三层楼。懒得(或无力)走楼梯的，就住在第一层，即把物质生活弄得很好，锦衣玉食，尊荣富贵，孝子慈孙，这样就满足了。这也是一种人生观。抱这样的人生观的人，在世间占大多数。其次，高兴(或有力)走楼梯的，就爬上二层楼去玩玩，或者久居在里头。这就是专心学术文艺的人。他们把全力贡献于学问的研究，把全心寄托于文艺的创作和欣赏。这样的人，在世间也很多，即所谓“知识分子”，“学者”，“艺术家，”。还有一种人，“人生欲”很强，脚力很大，对二层楼还不满足，就再走楼梯，爬上三层楼去。这就是宗教徒了。他们做人很认真，满足了“物质欲”还不够，满足了“精神欲”还不够，必须探求人生的究竟。他们以为财产子孙都是身外之物，学术文艺都是暂时的美景，连自己的身体都是虚幻的存在。他们不肯做本能的奴隶，必须追究灵魂的来源，宇宙的根本，这才能满足他们的“人生欲”。这就是宗教徒。世间就不过这三种人。我虽用三层楼为比喻，但并非必须从第一层到第二层，然后得到第三层。有很多人，从第一层直上第三层，并不需要在第二层勾留。还有许多人连第一层也不住，一口气跑上三层楼。不过我们的弘一法师，是一层一层的走上去的。弘一法师的“人生欲”非常之强！他的做人，一定要做得彻底。他早年对母尽孝，对妻子尽爱，安住在第一层楼中。中年专心研究艺术，发挥多方面的天才，便是迁居在二层楼了。强大的“人生欲”不能使他满足于二层楼，于是爬上三层楼去，做和尚，修净土，研戒律，这是当然的事，毫不足怪的。做人好比喝酒；酒量小的，喝一杯花雕酒已经醉了，酒量大的，喝花雕嫌淡，必须喝高粱酒才能过瘾。文艺好比是花雕，宗教好比是高梁。弘一法师酒量很大，喝花雕不能过瘾，必须喝高粱。我酒量很小，只能喝花雕，难得喝一口高梁而已。但喝花雕的人，颇能理解喝高梁者的心。故我对于弘一法师的由艺术升华到宗教，一向认为当然，毫不足怪的。 </p>
 <p>艺术的最高点与宗教相接近。二层楼的扶梯的最后顶点就是三层楼，所以弘一法师由艺术升华到宗教，是必然的事。弘一法师在闽中，留下不少的墨宝。这些墨宝，在内容上是宗教的，在形式上是艺术的——书法。闽中人士久受弘一法师的熏陶，大都富有宗教信仰及艺术修养。我这初次入闽的人，看见这情形，非常歆羡，十分钦佩！ </p>
@@ -357,7 +426,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;弘一法师是我学艺术的教师，又是我信宗教的导师。我的一生，受法师影响很大。厦门是法师近年经行之地，据我到此三天内所见，厦门人士受法师的影响也很大，故我与厦 门人土不啻都是同窗弟兄。今天佛学会要我演讲，我惭愧修养浅薄，不能讲弘法利生的大义，只能把我从弘一法师学习艺术宗教时的旧事，向诸位同窗弟兄谈谈，还请赐我指教。&lt;/p&gt;
+      &lt;p&gt;弘一法师是我学艺术的教师，又是我信宗教的导师。我的一生，受法师影响很大。厦门是法师近年经行之地，据我到此三天内所见，厦门人士受法师的影响也很大，故我与厦门人士不啻都是同窗弟兄。今天佛学会要我演讲，我惭愧修养浅薄，不能讲弘法利生的大义，只能把我从弘一法师学习艺术宗教时的旧事，向诸位同窗弟兄谈谈，还请赐我指教。&lt;/p&gt;
 &lt;p&gt;我十七岁入杭州浙江第一师范，廿岁毕业以后没有升学。我受中等学校以上学校教育，只此五年。这五年间，弘一法师，那时称为李叔同先生，便是我的图画音乐教师。图画音乐两科，在现在的学校里是不很看重的，但是奇怪得很，在当时我们的那间浙江第一师范里，看得比英、国、算还重。
     
     </summary>
