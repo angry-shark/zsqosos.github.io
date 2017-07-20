@@ -15,18 +15,18 @@
 <meta property="og:url" content="http://zsqosos.github.io/posts/program/20170308-stickyfooter/index.html">
 <meta property="og:site_name" content="Zhangs'blog">
 <meta property="og:description" content="Sticky footer布局是什么？我们所见到的大部分网站页面，都会把一个页面分为头部区块、内容区块和页脚区块，当头部区块和内容区块内容较少时，页脚能固定在屏幕的底部，而非随着文档流排布。当页面内容较多时，页脚能随着文档流自动撑开，显示在页面的最底部，这就是Sticky footer布局。 图示说明 当内容较少时，正常的文档流效果如下图   在正常的文档流中，页面内容较少时，页脚部分不是固定在视">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-89d4e572ace7edaa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4384107-bc36dd84bf9008b8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-08T06:32:43.434Z">
+<meta property="og:image" content="http://zsqosos.github.io/assets/blogImg/stickyFooter1.jpg">
+<meta property="og:image" content="http://zsqosos.github.io/assets/blogImg/stickyFooter2.jpg">
+<meta property="og:updated_time" content="2017-07-20T13:58:39.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="两种最常用的Sticky footer布局方式">
 <meta name="twitter:description" content="Sticky footer布局是什么？我们所见到的大部分网站页面，都会把一个页面分为头部区块、内容区块和页脚区块，当头部区块和内容区块内容较少时，页脚能固定在屏幕的底部，而非随着文档流排布。当页面内容较多时，页脚能随着文档流自动撑开，显示在页面的最底部，这就是Sticky footer布局。 图示说明 当内容较少时，正常的文档流效果如下图   在正常的文档流中，页面内容较少时，页脚部分不是固定在视">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4384107-89d4e572ace7edaa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://zsqosos.github.io/assets/blogImg/stickyFooter1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Zhangs&#39;blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="http://i1.buimg.com/1949/45993beff716f2b1.png">
+    <link rel="icon" href="/assets/img/favicon.jpg">
   
   <link rel="stylesheet" type="text/css" href="/./main.613878.css">
   <style type="text/css">
@@ -50,7 +50,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="http://i1.piimg.com/4851/98074b09ea6b4bda.jpg" class="js-avatar">
+			<img src="/assets/img/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Zhangs</a></h1>
@@ -112,7 +112,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://i1.piimg.com/4851/98074b09ea6b4bda.jpg" class="js-avatar">
+				<img src="/assets/img/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Zhangs</h1>
@@ -195,12 +195,12 @@
 <h2 id="图示说明"><a href="#图示说明" class="headerlink" title="图示说明"></a>图示说明</h2><ul>
 <li>当内容较少时，正常的文档流效果如下图</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/4384107-89d4e572ace7edaa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正常文档流.jpg"></p>
+<p><img src="/assets/blogImg/stickyFooter1.jpg" alt="正常文档流.jpg"></p>
 <p>在正常的文档流中，页面内容较少时，页脚部分不是固定在视窗底部的，这时就要用到Stickyfooter布局。<a id="more"></a></p>
 <ul>
 <li>Sticky footer布局效果如下图</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/4384107-bc36dd84bf9008b8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Sticky footer布局.jpg"></p>
+<p><img src="/assets/blogImg/stickyFooter2.jpg" alt="Sticky footer布局.jpg"></p>
 <p>这样就符合我们的预期效果，可以看出Sticky footer布局的应用场景还是非常广泛的。</p>
 <h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="负margin布局方式"><a href="#负margin布局方式" class="headerlink" title="负margin布局方式"></a>负margin布局方式</h3><p>html代码：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper clearfix"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></div><div class="line">      // 这里是页面内容</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span></div><div class="line">    // 这里是footer的内容</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -390,19 +390,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">旧事</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">摘录杂文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color3">旧事</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -411,6 +403,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">摘录杂文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
